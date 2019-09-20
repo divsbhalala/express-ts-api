@@ -1,0 +1,56 @@
+{
+  "name": "express-ts-api",
+  "version": "1.0.1",
+  "description": "Express Typescript API",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "NODE_ENV=test jest --config jest.config.js",
+    "start": "node -r ts-node/register --inspect ./src/index.ts",
+    "dev": "nodemon",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint -p . --fix",
+    "format": "prettier \"src/**/*.ts\" -l \"warn\"",
+    "format:fix": "prettier --write \"src/**/*.ts\" -l \"warn\"",
+    "format:lint:fix": "prettier --write \"src/**/*.ts\" -l \"warn\" && npm run lint:fix"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.5",
+    "compression": "^1.7.4",
+    "debug": "^4.1.1",
+    "dotenv": "^7.0.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.17.0",
+    "express-joi-validation": "^0.3.0",
+    "helmet": "^3.16.0",
+    "joi": "^14.3.1",
+    "mongodb": "^3.3.2",
+    "mongoose": "^5.7.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/compression": "0.0.36",
+    "@types/debug": "^4.1.4",
+    "@types/dotenv": "^6.1.1",
+    "@types/errorhandler": "0.0.32",
+    "@types/express": "^4.16.1",
+    "@types/helmet": "0.0.43",
+    "@types/jest": "^24.0.18",
+    "@types/joi": "^14.3.3",
+    "@types/node": "^11.13.7",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.17.2",
+    "jest": "^24.9.0",
+    "nodemon": "^1.18.11",
+    "prettier": "^1.17.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "~3.4.5"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}

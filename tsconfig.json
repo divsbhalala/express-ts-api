@@ -1,0 +1,25 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noLib": false,
+    "outDir": "./build",
+    "removeComments": false,
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "target": "es6",
+    "paths": {
+      "*": ["src/types/*"]
+    }
+  },
+  "files": [
+    "./node_modules/@types/mongoose/index.d.ts",
+    "./node_modules/@types/mongodb/index.d.ts"
+  ],
+  "include": ["src"],
+  "exclude": ["build", "jest", "node_modules", "scripts", "webpack", "types"],
+  "filesGlob": ["./**/*.ts", "!./build/**/*.ts", "!./node_modules/**/*.ts"],
+  "lib": ["es6"]
+}
