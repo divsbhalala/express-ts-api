@@ -1,12 +1,22 @@
 import * as request from "supertest";
-import server from "../../src/index";
-// import { App } from "../../src/app/App";
+// import server from "../../src/index";
+import app from "../../src/app";
 
-// const app: App = new App();
-// app.setPort(3000);
+let server = app;
+beforeEach(async () => {
+    server = await app.listen(4000);
+    global.agent = request.agent(server);
+});
 
+// Hooks - After All
+afterEach(async (done) => {
+    await new Promise(resolve => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+    await server.close(done);
+});
 
-// const app: App = new App();
+afterAll(async(done) => {
+    done();
+})
 describe("POST /api/users/register", () => {
 
     const data = {
@@ -15,37 +25,27 @@ describe("POST /api/users/register", () => {
     };
     let resp = {};
     it("SHOULD return 200Ok", async (done) => {
-        request(server)
-            .post("/api/users/register")
+        const response = await global.agent.post("/api/users/register")
             .send(data)
-            .set('Content-Type', 'application/json')
-            .end((err, response) => {
-                resp = response.body.data;
-                expect(response.statusCode).toBe(200);
-                expect(resp.fbId).toBe(data.fbId);
-                return done();
-            })
+            .set('Content-Type', 'application/json');
+        resp = response.body.data;
+        expect(response.statusCode).toBe(200);
+        expect(resp.fbId).toBe(data.fbId);
+        done();
     });
     it("SHOULD return Same results ", async (done) => {
-        request(server)
-            .post("/api/users/register")
+        const response = await global.agent.post("/api/users/register")
             .send(data)
-            .set('Content-Type', 'application/json')
-            .end((err, response) => {
-                resp = response.body.data;
-                expect(response.statusCode).toBe(200);
-                expect(response.body.data._id).toBe(resp._id);
-                return done();
-            })
+            .set('Content-Type', 'application/json');
+        expect(response.statusCode).toBe(200);
+        expect(response.body.data._id).toBe(resp._id);
+        return done();
     });
     it("SHOULD return 400", async (done) => {
-        request(server)
-            .post("/api/users/register")
+        const response = await global.agent.post("/api/users/register")
             .send({})
-            .set('Content-Type', 'application/json')
-            .end((err, response) => {
-                expect(response.statusCode).toBe(400);
-                done();
-            })
+            .set('Content-Type', 'application/json');
+        expect(response.statusCode).toBe(400);
+        done();
     });
 });

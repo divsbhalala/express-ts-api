@@ -1,22 +1,22 @@
-import { Env, Database } from './app/core';
-Env.loadEnvSettings();
 
-import * as http from 'http';
+// import * as http from 'http';
 import * as debug from 'debug';
-import { App } from './app/app';
+import app from './app';
 
 const logger = debug('app:src/index.ts');
-Database.init();
 
-const app: App = new App();
 const port = normalizePort(process.env.PORT || 4000);
-app.setPort(port);
-const server = http.createServer(app.app);
-server.listen(port);
+
+// const server = http.createServer(app);
+
+const server = app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
+// server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-// Normalize port
+
 function normalizePort(val: number | string): number {
   const DEFAULT_PORT = 3000;
   const portNumber: number = typeof val === 'string' ? parseInt(val, 10) : val;
